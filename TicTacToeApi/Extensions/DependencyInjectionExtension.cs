@@ -14,5 +14,6 @@ public static class DependencyInjectionExtension
                 x => x.MigrationsAssembly("EfPersistence"));
         });
         services.AddTransient<GameStatisticsService>();
+        services.AddTransient<PlayersService>();
     }
 }

@@ -1,4 +1,5 @@
 using TicTacToeApi.Extensions;
+using TicTacToeApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,4 +20,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// app.MapGroup("/api").AddStatisticsEndpoints();
+app.MapGroup("/api/games").AddGameStatisticsEndpoints();
+app.MapGroup("/api/players").AddPlayersEndpoints();

@@ -74,10 +74,6 @@ namespace EfPersistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("PlayerSymbol")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Name")

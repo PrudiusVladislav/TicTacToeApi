@@ -1,12 +1,17 @@
-﻿namespace TicTacToeApi.Extensions;
+﻿using TicTacToeApi.Services;
 
-public static class StatisticsEndpoints
+namespace TicTacToeApi.Extensions;
+
+public static class GameStatisticsEndpoints
 {
-    public static void AddStatisticsEndpoints(this RouteGroupBuilder endpoints)
+    public static void AddGameStatisticsEndpoints(this RouteGroupBuilder endpoints)
     {
-        endpoints.MapGet("/api/statistics", async context =>
+        endpoints.MapGet("", async (GameStatisticsService service) => Results.Ok(await service.GetAllAsync()));
+        
+        endpoints.MapGet("/{id:int}", async (int id, GameStatisticsService service) =>
         {
-            await context.Response.WriteAsJsonAsync(new { Message = "Hello World!" });
+            var game = await service.GetAsync(id);
+            return game is null ? Results.NotFound() : Results.Ok(game);
         });
     }
 }
