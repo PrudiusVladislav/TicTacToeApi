@@ -2,6 +2,7 @@
 using EfPersistence.Models;
 using Microsoft.EntityFrameworkCore;
 using TicTacToeApi.Dtos;
+using TicTacToeApi.Extensions;
 
 namespace TicTacToeApi.Services;
 
@@ -16,7 +17,7 @@ public class PlayersService
     
     public async Task<List<Player>> GetAllAsync()
     {
-        return await _dbContext.Players.ToListAsync();
+        return await _dbContext.Players.IncludeStatistics().ToListAsync();
     }
     
     public async Task<Player?> GetAsync(int id)
