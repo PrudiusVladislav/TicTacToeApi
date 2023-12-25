@@ -1,4 +1,5 @@
-﻿using EfPersistence.Models;
+﻿
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfPersistence;

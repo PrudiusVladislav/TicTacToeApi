@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TicTacToeApi.Dtos.Games;
 using TicTacToeApi.Services;
 
 namespace TicTacToeApi.Extensions;
@@ -13,6 +14,12 @@ public static class GameStatisticsEndpoints
         {
             var game = await service.GetAsync(id);
             return game is null ? Results.NotFound() : Results.Ok(game);
+        });
+        
+        endpoints.MapPost("", async ([FromBody]CreateGameDto dto, [FromServices]GameStatisticsService service) =>
+        {
+            var id = await service.CreateAsync(dto);
+            return Results.Ok(await service.GetAsync(id));
         });
     }
 }

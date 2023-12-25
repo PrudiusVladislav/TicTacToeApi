@@ -1,7 +1,7 @@
 ﻿using EfPersistence;
-using EfPersistence.Models;
 using Microsoft.EntityFrameworkCore;
 using TicTacToeApi.Dtos;
+using TicTacToeApi.Dtos.Games;
 using TicTacToeApi.Extensions;
 
 namespace TicTacToeApi.Services;
@@ -27,4 +27,25 @@ public class GameStatisticsService
     {
         return await _dbContext.MatchResults.FirstOrDefaultAsync(x => x.Id == id);
     }
+    //
+    // public async Task<int> CreateAsync(CreateGameDto gameDto)
+    // {
+    //     var game = new MatchResult
+    //     {
+    //         FirstPlayer = gameDto.Player1,
+    //         Player2 = gameDto.Player2,
+    //         Winner = gameDto.Winner,
+    //         Date = gameDto.Date
+    //     };
+    //     _dbContext.MatchResults.Add(game);
+    //     await _dbContext.SaveChangesAsync();
+    //     return game.Id;
+    // }
+    //
+    // public async Task<ValidationResult> ValidateCreateGameDto(CreateGameDto dto)
+    // {
+    //     
+    // }
+    
+    
 }

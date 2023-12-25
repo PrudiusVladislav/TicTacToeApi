@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EfPersistence.Models;
+namespace Domain.Models;
 
 public class MatchResult
 {
