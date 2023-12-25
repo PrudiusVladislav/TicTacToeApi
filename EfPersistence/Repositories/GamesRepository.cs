@@ -15,7 +15,11 @@ public class GamesRepository: IGamesRepository
     
     public async Task<IReadOnlyCollection<MatchResult>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _dbContext.MatchResults.ToListAsync(cancellationToken);
+        return await _dbContext.MatchResults
+            .Include(mr => mr.FirstPlayer)
+            .Include(mr => mr.SecondPlayer)
+            .Include(mr => mr.WinnerPlayer)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<MatchResult?> GetAsync(int id, CancellationToken cancellationToken)

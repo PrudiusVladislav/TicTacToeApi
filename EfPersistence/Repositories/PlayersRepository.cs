@@ -15,7 +15,10 @@ public class PlayersRepository: IPlayersRepository
     
     public async Task<IReadOnlyCollection<Player>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _dbContext.Players.ToListAsync(cancellationToken);
+        return await _dbContext.Players
+            .Include(p => p.MatchResults)
+            .ToListAsync(cancellationToken);
+
     }
 
     public async Task<Player?> GetAsync(int id, CancellationToken cancellationToken)
@@ -25,8 +28,7 @@ public class PlayersRepository: IPlayersRepository
 
     public async Task<Player?> GetByNameAsync(string? name, CancellationToken cancellationToken)
     {
-        return await _dbContext.Players.FirstOrDefaultAsync(p =>
-            p.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase),
+        return await _dbContext.Players.FirstOrDefaultAsync(p => p.Name == name, 
             cancellationToken);
     }
 

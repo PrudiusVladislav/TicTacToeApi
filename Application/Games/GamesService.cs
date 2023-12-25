@@ -48,6 +48,8 @@ public class GamesService: IGamesService
             return new ValidationResult("Players cannot be the same");
         if (dto.FirstPlayerName != dto.WinnerName && dto.SecondPlayerName != dto.WinnerName)
             return new ValidationResult("Winner must be one of the players");
+        if (dto.IsDraw && !string.IsNullOrWhiteSpace(dto.WinnerName))
+            return new ValidationResult("Winner cannot be specified if the match is a draw");
         
         var firstPlayer = await _playersService.GetByNameAsync(dto.FirstPlayerName, cancellationToken);
         if (firstPlayer is null)

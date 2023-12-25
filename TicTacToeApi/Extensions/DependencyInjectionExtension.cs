@@ -1,6 +1,8 @@
-﻿using EfPersistence;
+﻿using Application.Games;
+using Application.Players;
+using EfPersistence;
+using EfPersistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using TicTacToeApi.Services;
 
 namespace TicTacToeApi.Extensions;
 
@@ -13,7 +15,11 @@ public static class DependencyInjectionExtension
             options.UseSqlServer(configuration.GetConnectionString("SqlClient"),
                 x => x.MigrationsAssembly("EfPersistence"));
         });
-        services.AddTransient<GameStatisticsService>();
-        services.AddTransient<PlayersService>();
+        
+        services.AddTransient<IGamesRepository, GamesRepository>();
+        services.AddTransient<IPlayersRepository, PlayersRepository>();
+        
+        services.AddTransient<IGamesService, GamesService>();
+        services.AddTransient<IPlayersService, PlayersService>();
     }
 }

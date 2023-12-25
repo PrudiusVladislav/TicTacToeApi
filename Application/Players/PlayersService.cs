@@ -39,6 +39,8 @@ public class PlayersService: IPlayersService
     
     public async Task<ValidationResult?> ValidateCreatePlayerDtoAsync(CreatePlayerDto dto, CancellationToken cancellationToken)
     {
+        if (dto.Name.Length is <= 2 or >= 50)
+            return new ValidationResult("Name must be between 2 and 50 characters long");
         var player = await _playersRepository.GetByNameAsync(dto.Name, cancellationToken);
         if(player is not null)
             return new ValidationResult("Player with this name already exists");
